@@ -1,2 +1,23 @@
 {
+	"folders":
+	[
+		{
+			"path": "./",
+			"name":"Root",
+			"folder_exclude_patterns": ["src"]
+		},{
+			"path": "./src",
+			"name": "Source"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name":"sublimeRepl",
+			"selector":"source.clojure",
+			"target": "run_existing_window_command",
+			"id": "repl_clojure",
+			"file": "config/Clojure/Main.sublime-menu"
+		}
+	]
 }
