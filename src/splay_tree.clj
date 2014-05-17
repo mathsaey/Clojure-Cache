@@ -202,3 +202,16 @@
 	"Create a node (or tree) without children."
 	[key value]
 	{:key key :value value :left nil :right nil})
+
+(defn create-empty
+	"Create an empty splay-tree"
+	[]
+	nil)
+
+(defn insert-empty
+	"Insert an element in the tree, which might be empty (nil)"
+	[tree key value]
+
+	(if (not tree)
+		(create key value)
+		(insert tree key value)))
