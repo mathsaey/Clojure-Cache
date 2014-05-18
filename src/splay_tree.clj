@@ -206,12 +206,39 @@
 (defn create-empty
 	"Create an empty splay-tree"
 	[]
-	nil)
+	:empty_st)
 
 (defn insert-empty
-	"Insert an element in the tree, which might be empty (nil)"
+	"Insert an element in the tree, which might be empty"
 	[tree key value]
 
-	(if (not tree)
+	(if (= tree :empty_st)
 		(create key value)
 		(insert tree key value)))
+
+(defn find-empty
+	"Find an element in the tree, which might be empty"
+	[tree key]
+	(if (= tree :empty_st)
+		nil
+		(find tree key)))
+
+(defn find-nosplay-empty
+	[tree key]
+	"Find an element in the tree, which might be empty, without splaying"
+	(if (= tree :empty_st)
+		nil
+		(find-without-splay tree key)))
+
+(defn elements-empty
+	[tree]
+	"Get the elements of the tree, which might be empty"
+	(if (= tree :empty_st)
+		[]
+		(all-elements tree)))
+
+(defn remove-leaf-empty
+	[tree]
+	(if (= tree :empty_st)
+		nil
+		(remove-leaf tree)))

@@ -115,7 +115,7 @@
 				c (cache/create s 5)
 				body (fn [] (do 
 					(cache/retrieve c :a)
-					(is (= 1 (count (cache/elements c))))))
+					(is (= '(:a) (cache/elements c)))))
 				threads (repeatedly 30 (fn [] (Thread. body)))
 			]
 			(doseq [t threads] (.start t))
@@ -124,7 +124,7 @@
 (deftest test-size
 	(testing "Ensure the cache cannot exceed it's max size"
 		(let [
-				s (store/create store-data 10)
+				s (store/create store-data 0)
 				c (cache/create s 2)
 				body (fn [] 
 					(cache/retrieve c :a)
@@ -134,7 +134,7 @@
 					(cache/retrieve c :e)
 					(cache/retrieve c :f)
 					(cache/retrieve c :g)
-					(is (= @(get c :size) (count (cache/elements c)))))
+					(is (= 2 (count (cache/elements c)))))
 				threads (repeatedly 30 (fn [] (Thread. body)))
 		]
 
