@@ -121,4 +121,8 @@
 			(doseq [t threads] (.start t))
 			(doseq [t threads] (.join t)))))
 
+(deftest test-size
+	(testing "Ensure the cache cannot exceed it's max size"
+		
+
 (run-tests 'cache-test)

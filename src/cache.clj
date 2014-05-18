@@ -11,7 +11,7 @@
 	[tree key]
 	(dosync 
 		(let [
-			prev-tree @tree
+			prev-tree (ensure tree)
 			next-tree (alter tree st/find key)]
 
 			(if next-tree
@@ -29,7 +29,7 @@
 	"See if the cache is not too large, evict items if needed"
 	[{tree :tree size :size store :store max :max :as cache} key value]
 		(dosync
-			(if (>= @size max)
+			(if (>= (ensure size) max)
 				(commute tree st/remove-leaf)
 				(commute size + 1)))
 		(insert-element cache key value)
