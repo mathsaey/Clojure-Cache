@@ -123,6 +123,26 @@
 
 (deftest test-size
 	(testing "Ensure the cache cannot exceed it's max size"
-		
+		(let [
+				s (store/create store-data 10)
+				c (cache/create s 2)
+				body (fn [] 
+					(cache/retrieve c :a)
+					(cache/retrieve c :b)
+					(cache/retrieve c :c)
+					(cache/retrieve c :d)
+					(cache/retrieve c :e)
+					(cache/retrieve c :f)
+					(cache/retrieve c :g)
+					(is (= @(get c :size) (count (cache/elements c)))))
+				threads (repeatedly 30 (fn [] (Thread. body)))
+		]
+
+			(cache/retrieve c :a)
+			(cache/retrieve c :b)
+			(cache/retrieve c :c)
+
+			(doseq [t threads] (.start t))
+			(doseq [t threads] (.join t)))))
 
 (run-tests 'cache-test)
