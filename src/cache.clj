@@ -41,7 +41,7 @@
 	[{tree :tree size :size store :store max :max :as cache} key value]
 
 	(dosync
-		(if (and value (not (st/find-without-splay tree key)))
+		(if (and value (not (st/find-without-splay (ensure tree) key)))
 			(insert-size-check cache key value)
 			cache)))
 

@@ -108,4 +108,17 @@
 			(doseq [t threads] (.start t))
 			(doseq [t threads] (.join t)))))
 
+(deftest test-multiple-inserts
+	(testing "See if the cache can handle multiple inserts of the same data"
+		(let [
+				s (store/create {:a 1} 10)
+				c (cache/create s 5)
+				body (fn [] (do 
+					(cache/retrieve c :a)
+					(is (= 1 (count (cache/elements c))))))
+				threads (repeatedly 30 (fn [] (Thread. body)))
+			]
+			(doseq [t threads] (.start t))
+			(doseq [t threads] (.join t)))))
+
 (run-tests 'cache-test)
